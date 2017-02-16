@@ -1,0 +1,116 @@
+
+body{
+  background-color: #b6bdfa;
+}
+@image-in-time:2s;
+@image-width:300px;
+@image-move-space:@image-width/1.5;
+
+#effect(){
+  /*.moveZ(@space){
+    transform: translateZ(@space);
+    transition: transform @images-in-time linear;
+  }
+
+  .moveY(@space){
+    transform: translateY(@space);
+    transition: transform @images-in-time linear;
+  }
+
+  .moveX(@space){
+    transform: translateX(@space) rotateY(90deg);
+    transition: transform @images-in-time linear;
+  }*/
+
+  .rotateY(@angle:0deg,@duration:0s,@delay:0s){
+    transform: rotateX(@angle) rotateY(@angle);
+    transition: transform @duration linear @delay;
+  }
+
+  //前面的效果
+  .front-Effect(@space){
+    transform: translateZ(@space);
+    transition: transform @image-in-time linear;
+  }
+
+  //后面的效果
+  .back-Effect(@space){
+    transform: translateZ(@space);
+    transition: transform @image-in-time linear;
+  }
+
+  //左面的效果
+  .left-Effect(@space:0px,@angle:0deg){
+    transform: translateX(@space) rotateY(@angle);
+    transition: transform @image-in-time linear;
+  }
+
+  //右面的效果
+  .right-Effect(@space:0px,@angle:0deg){
+    transform: translateX(@space) rotateY(@angle);
+    transition: transform @image-in-time linear;
+  }
+
+  //上面的效果
+  .top-Effect(@space:0px,@angle:0deg){
+    transform: translateY(@space) rotateX(@angle);
+    transition: transform @image-in-time linear;
+  }
+
+  //下面的效果
+  .bottom-Effect(@space:0px,@angle:0deg){
+    transform: translateY(@space) rotateX(@angle);
+    transition: transform @image-in-time linear;
+  }
+
+}
+
+.show-content{
+
+  /*perspective: 1000px;*/
+  transform-style: preserve-3d;
+
+  width: 300px;
+  height: 400px;
+  margin: 45px auto;
+  /*border: 1px solid rgba(255,127,12,1.0);*/
+
+  img{
+    width: 300px;
+    opacity: 0.7;
+    position: absolute;
+  }
+
+}
+.show-content:hover{
+
+  .front-image{
+   /* #effect > .moveZ(150px)*/
+    #effect > .front-Effect(@image-move-space);
+  }
+
+  .back-image{
+   /* #effect > .moveZ(-150px)*/
+    #effect > .back-Effect(-@image-move-space);
+  }
+
+  .left-image{
+    /*#effect > .rotateY(90deg,@images-in-time);*/
+    #effect > .left-Effect(-@image-move-space,90deg);
+  }
+
+  .right-image{
+    #effect > .right-Effect(@image-move-space,-90deg);
+  }
+
+  .top-image{
+    #effect > .bottom-Effect(-@image-move-space,90deg);
+  }
+
+  .bottom-image{
+    #effect > .bottom-Effect(@image-move-space,-90deg);
+  }
+
+  #effect > .rotateY(360deg,10s,@image-in-time);
+
+}
